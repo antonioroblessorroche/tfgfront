@@ -1,0 +1,54 @@
+<app-header title="Entrenamiento"></app-header>
+<ion-content *ngIf="diet">
+    <ion-card>
+        <ion-card-header>
+         
+          <ion-card-title> {{diet.day}}/{{diet.month}}/{{diet.year}} </ion-card-title>
+          <ion-card-subtitle>{{diet.description}}</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card *ngFor="let menu of diet.menus">
+
+          <ion-card-title class="ion-margin"> {{menu.meal}} </ion-card-title>
+          <ion-card-content class="ion-text-justify">
+            {{menu.description}}
+            <br>
+            {{menu.annotations}}
+          </ion-card-content>
+          
+        </ion-card>
+      
+        <ion-card-content class="ion-text-justify">
+          {{diet.comments}}
+        </ion-card-content>
+      </ion-card>
+      <div class="ion-padding">
+        <ion-button color="tertiary" expand="block" type="submit" class="ion-no-margin" (click)="volver()"> 
+            <ion-icon name="arrow-back-circle">  </ion-icon>
+            Volver
+             </ion-button>
+     </div>
+</ion-content>
+
+<ion-content *ngIf="!diet">
+  <ion-card>
+      <ion-card-header>
+       
+        <ion-card-title><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></ion-card-title>
+        <ion-card-subtitle><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></ion-card-subtitle>
+      </ion-card-header>
+    
+      <ion-card-content class="ion-text-justify">
+        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+      </ion-card-content>
+    </ion-card>
+    <div class="ion-padding">
+      <ion-button color="tertiary" expand="block" type="submit" class="ion-no-margin" (click)="volver()"> 
+          <ion-icon name="arrow-back-circle">  </ion-icon>
+          Volver
+           </ion-button>
+   </div>
+</ion-content>

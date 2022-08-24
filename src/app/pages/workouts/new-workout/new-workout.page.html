@@ -1,0 +1,48 @@
+<app-header title="Nuevo workout"></app-header>
+
+<ion-content>
+
+    <form #f="ngForm" (ngSubmit)="onCreate()" novalidate>
+        <ion-list lines="full" class="ion-no-margin">
+            <ion-list-header lines="full">
+              <ion-label>
+                Rellenar nuevo registro
+              </ion-label>
+            </ion-list-header>
+            <ion-item>
+              <ion-label>Nombre:</ion-label>
+              <ion-input required placeholder="Nombre del workout" name="name" [(ngModel)]="name"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>Grupo: </ion-label>
+              <ion-input required placeholder="Grupo" name="workoutGroup" [(ngModel)]="workoutGroup"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Descripcion: </ion-label>
+                <ion-input required placeholder="Descripción del workout" name="description" [(ngModel)]="description"></ion-input>
+            </ion-item>
+            <div class="ion-padding">
+                <ion-button color="success" expand="block" type="submit" class="ion-no-margin" [disabled]="!f.valid"> 
+                    <ion-icon name="add-circle">  </ion-icon>
+                    Crear
+                     </ion-button>
+             </div>
+             <div class="ion-padding">
+                <ion-button color="secondary" expand="block" (click)="vaciar()" class="ion-no-margin"> 
+                    <ion-icon name="refresh-circle">  </ion-icon>
+                    Reset
+                     </ion-button>
+             </div>
+          </ion-list>
+         
+    </form>
+
+    <div class="ion-text-center">
+        <ion-label position="floating">
+            <ion-text color="danger">
+                *
+            </ion-text> Campos obligatorios
+        </ion-label>
+    </div>
+
+</ion-content>

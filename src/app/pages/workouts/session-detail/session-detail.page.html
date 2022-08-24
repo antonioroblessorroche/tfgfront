@@ -1,0 +1,54 @@
+<app-header title="Sesion de entrenamiento"></app-header>
+<ion-content *ngIf="session">
+    <ion-card>
+        <ion-card-header>
+         
+          <ion-card-title> Sesion {{session.day}}/{{session.month}}/{{session.year}} </ion-card-title>
+          <ion-card-subtitle>{{session.description}}</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card *ngFor="let workout of session.workouts">
+
+          <ion-card-title class="ion-margin" style="font-size:20px"> {{workout.name}} </ion-card-title>
+          <ion-card-content class="ion-text-justify" style="size: 14px">
+            {{workout.workoutGroup}}
+            <br><br>
+            {{workout.description}}
+          </ion-card-content>
+          
+        </ion-card>
+      
+        <ion-card-content class="ion-text-justify">
+          {{session.comments}}
+        </ion-card-content>
+      </ion-card>
+      <div class="ion-padding">
+        <ion-button color="tertiary" expand="block" type="submit" class="ion-no-margin" (click)="volver()"> 
+            <ion-icon name="arrow-back-circle">  </ion-icon>
+            Volver
+             </ion-button>
+     </div>
+</ion-content>
+
+<ion-content *ngIf="!session">
+  <ion-card>
+      <ion-card-header>
+       
+        <ion-card-title><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></ion-card-title>
+        <ion-card-subtitle><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></ion-card-subtitle>
+      </ion-card-header>
+    
+      <ion-card-content class="ion-text-justify">
+        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+      </ion-card-content>
+    </ion-card>
+    <div class="ion-padding">
+      <ion-button color="tertiary" expand="block" type="submit" class="ion-no-margin" (click)="volver()"> 
+          <ion-icon name="arrow-back-circle">  </ion-icon>
+          Volver
+           </ion-button>
+   </div>
+</ion-content>

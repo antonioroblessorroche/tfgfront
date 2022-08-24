@@ -1,0 +1,64 @@
+<app-header title="Asignar entrenamiento"></app-header>
+
+<ion-content>
+
+  <form #f="ngForm" (ngSubmit)="onCreate()" novalidate>
+    <ion-list lines="full" class="ion-no-margin">
+        <ion-list-header lines="full">
+          <ion-label>
+            Asignar entrenamientos a usuario
+          </ion-label>
+        </ion-list-header>
+        <ion-item>
+          <ion-label>Fecha</ion-label>
+          <ion-datetime displayFormat="D MMM YYYY" max="2100" min="2015" (onChange)="setDate($event)" name="date" [(ngModel)]="date"></ion-datetime>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label>Usuario</ion-label>
+          <ionic-selectable item-content [items]="users" itemValueField="nombreUsuario" itemTextField="nombre" [canSearch]="true" (onChange)="userChange($event)" >
+          </ionic-selectable>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Ejercicio</ion-label>
+          <ionic-selectable
+            item-content
+            [isMultiple]="true"
+            itemValueField="id"
+            itemTextField="name"
+            [items]="workouts"
+            [canSearch]="true"
+            [hasInfiniteScroll]="true"
+            (onSearch)="getWorkouts($event)"
+            (onInfiniteScroll)="getMore($event)"
+            name="selectedWorkouts"
+            [(ngModel)]="selectedWorkouts">
+          </ionic-selectable>
+        </ion-item>
+
+
+        <ion-item>
+          <ion-label>Comentarios: </ion-label>
+          <ion-input required placeholder="Comentarios" name="comments" [(ngModel)]="comments"></ion-input>
+        </ion-item>
+
+
+
+        <div class="ion-padding">
+            <ion-button color="success" expand="block" type="submit" class="ion-no-margin" [disabled]="!f.valid"> 
+                <ion-icon name="add-circle">  </ion-icon>
+                Crear
+                 </ion-button>
+         </div>
+         <div class="ion-padding">
+            <ion-button color="secondary" expand="block" (click)="vaciar()" class="ion-no-margin"> 
+                <ion-icon name="refresh-circle">  </ion-icon>
+                Reset
+                 </ion-button>
+         </div>
+      </ion-list>
+     
+</form>
+
+</ion-content>

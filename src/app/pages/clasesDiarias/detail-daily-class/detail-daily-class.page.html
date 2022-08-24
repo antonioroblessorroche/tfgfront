@@ -1,0 +1,38 @@
+<app-header title="Clase"></app-header>
+
+<ion-content *ngIf="class">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>{{class.locationName}}</ion-card-subtitle>
+      <ion-card-title>{{class.name}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Horario: {{class.time}} <br><br>
+      Plazas disponibles: {{class.slots}} <br><br>
+      {{class.description}}
+    </ion-card-content>
+  </ion-card>
+
+  <ion-content *ngIf="!pastClass && !userHasJoined && isAvailable">
+    <ion-button (click)="inscribirme()" expand="block" color="success">
+      <ion-icon name="add-circle"></ion-icon>
+      Inscribirme
+    </ion-button>
+  </ion-content>
+
+  <ion-content *ngIf="!pastClass && userHasJoined">
+    <ion-button (click)="borrarme()" expand="block" color="danger">
+      <ion-icon name="add-circle"></ion-icon>
+      Eliminar Inscripción
+    </ion-button>
+  </ion-content>
+
+
+
+  <ion-content *ngIf="!pastClass && !isAvailable && !userHasJoined">
+    <ion-title align="center">No hay plazas disponibles</ion-title>
+    <ion-title align="center">Disculpe las molestias</ion-title>
+  </ion-content>
+  
+
+</ion-content>

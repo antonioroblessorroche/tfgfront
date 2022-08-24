@@ -1,0 +1,53 @@
+<app-header title="Edicion de tarifas"></app-header>
+
+<ion-content *ngIf="fare">
+  <form #f="ngForm" (ngSubmit)="onCreate()">
+  <ion-list lines="full" class="ion-no-margin">
+      <ion-item>
+        <ion-label>Nombre: </ion-label>
+        <ion-input required placeholder="Nombre del centro" name="nombre" [(ngModel)]="fare.name"></ion-input>
+    </ion-item>
+
+      <ion-item>
+        <ion-label>Cantidad: </ion-label>
+        <ion-input required placeholder="Descripcion" name="description" [(ngModel)]="fare.amount"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Número de accesos: </ion-label>
+        <ion-input required placeholder="Accesos" type="number" name="accesos" [(ngModel)]="fare.numOfActivities"></ion-input>
+    </ion-item>
+
+
+      <div class="ion-padding">
+          <ion-button color="success" expand="block" type="submit" class="ion-no-margin" [disabled]="!f.valid"> 
+              <ion-icon name="add-circle">  </ion-icon>
+              Editar
+               </ion-button>
+       </div>
+       
+    </ion-list>
+   
+</form>
+
+</ion-content>
+
+
+<ion-content *ngIf="!fare">
+  <ion-card>
+      <ion-card-header>
+          <ion-card-title>
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          </ion-card-title>
+          <ion-card-subtitle>
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content class="ion-text-justify">
+          <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+      </ion-card-content>
+  </ion-card>
+</ion-content>

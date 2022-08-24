@@ -1,0 +1,115 @@
+<app-header title="Mi perfil"></app-header>
+
+<ion-content *ngIf="profile">
+
+      <ion-item *ngIf="!isAdmin">
+        <ion-segment  (ionChange)="segmentChanged($event)">
+          <ion-segment-button value="profile">
+            <ion-label>Perfil</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="payments">
+            <ion-label>Pagos</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="notes">
+            <ion-label>Notas</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-item>
+
+      <ion-item  *ngIf="isAdmin">
+      <ion-segment (ionChange)="segmentChanged($event)">
+        <ion-segment-button value="profile">
+          <ion-label>Perfil</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="notes">
+          <ion-label>Notas</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-item>
+
+    <ion-content *ngIf="selector == 'profile'">
+
+      <ion-list-header>Datos de usuario</ion-list-header>
+
+        <ion-item>
+            <ion-label position="stacked">Nombre completo</ion-label>
+            <ion-row>
+              <ion-input placeholder="Nombre completo" readonly [(ngModel)]="profile.nombre"></ion-input>
+              <ion-button (click)="presentNewName()">Editar</ion-button>
+            </ion-row>
+
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Nombre de usuario</ion-label>
+            <ion-row>
+            <ion-input placeholder="Nombre de usuario" readonly [(ngModel)]="profile.nombreUsuario"></ion-input>
+            <ion-button (click)="presentNewUser()">Editar</ion-button>
+          </ion-row>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Correo electrónico</ion-label>
+            <ion-row>
+            <ion-input placeholder="Correo electrónico" readonly [(ngModel)]="profile.email"></ion-input>
+            <ion-button (click)="presentNewMail()">Editar</ion-button>
+          </ion-row>
+          </ion-item>
+
+          <ion-item *ngIf="!isAdmin">
+            <ion-label position="stacked">Tarifa actual</ion-label>
+            <ion-input placeholder="Tarifa actual" readonly [(ngModel)]="currentFare"></ion-input>
+          </ion-item>
+
+          <ion-list-header>Seguridad</ion-list-header>
+
+          <ion-item>
+            <ion-label position="stacked">Contraseña</ion-label>
+            <ion-row>
+            <ion-input readonly >Credenciales</ion-input>
+            <ion-button (click)="presentNewPass()" >Modificar contraseña</ion-button>
+          </ion-row>
+          </ion-item>
+
+          <!-- <ion-item>
+            <ion-label position = "stacked">Metodo de pago</ion-label>
+            <ion-select required [(ngModel)]="method" [ngModelOptions]="{standalone: true}" #mySelect [value]="method" [selectedText]="method" (ionChange)="selectChanged(mySelect.value)">
+              <ion-select-option *ngFor="let paymeth of methods" [selected]="paymeth === method">{{ paymeth }}</ion-select-option>
+            </ion-select>
+          </ion-item> -->
+    </ion-content>
+    
+    <ion-content *ngIf="selector == 'notes'">
+      <ion-item>
+        <ion-textarea rows="25" placeholder="Anotaciones..." [(ngModel)]="profile.userComments"></ion-textarea>
+      </ion-item>
+        <ion-button expand="block" color="success"  (click)="addComments()">
+            <ion-icon name="add-circle"></ion-icon>
+            <ion-label>Actualizar</ion-label>
+        </ion-button>
+
+  </ion-content>
+
+    <ion-content *ngIf="selector == 'payments' && payments">
+      <ion-list *ngFor="let payment of payments">
+          <ion-item-sliding>
+              <ion-item>
+                <ion-label>{{payment.month}}/{{payment.year}}: {{payment.amount}}€ ({{payment.method}})
+                </ion-label>
+              </ion-item>
+          </ion-item-sliding>
+      </ion-list>
+
+      <ion-infinite-scroll (ionInfinite)="loadData($event)">
+          <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="Loading more data...">
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+  </ion-content>
+
+   <ion-content *ngIf="selector == 'payments' && !payments">
+    <ion-title>No existen pagos.</ion-title>
+  </ion-content>
+
+</ion-content>

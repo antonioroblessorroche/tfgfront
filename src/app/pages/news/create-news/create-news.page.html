@@ -1,0 +1,31 @@
+<app-header title="Nueva noticia"></app-header>
+
+<ion-content>
+  <form #f="ngForm" (ngSubmit)="onCreate()">
+  <ion-list lines="full" class="ion-no-margin">
+      <ion-item>
+        <ion-label>Titulo: </ion-label>
+        <ion-input required placeholder="Título de la noticia" name="nombre" [(ngModel)]="news.title"></ion-input>
+    </ion-item>
+
+      <ion-item>
+        <ion-label>Contenido: </ion-label>
+        <!-- <ion-textarea rows="30" placeholder="Anotaciones sobre el usuario..." [(ngModel)]="profile.comments"></ion-textarea> -->
+
+        <ion-textarea rows="20" required placeholder="Contenido de la noticia" name="description" [(ngModel)]="news.description"></ion-textarea>
+    </ion-item>
+
+
+
+      <div class="ion-padding">
+          <ion-button color="success" expand="block" type="submit" class="ion-no-margin" [disabled]="!f.valid"> 
+              <ion-icon name="add-circle">  </ion-icon>
+              Crear
+               </ion-button>
+       </div>
+       
+    </ion-list>
+   
+</form>
+
+</ion-content>

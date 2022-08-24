@@ -1,0 +1,45 @@
+<app-header title="Sesion de entrenamiento"></app-header>
+
+<ion-content>
+  <div class='ion-padding'>
+    <ion-button color="success" expand="block" type="submit" class="ion-no-margin" (click)="clases()">
+      <ion-icon name="person"> </ion-icon>
+      &nbsp; Mis clases
+    </ion-button>
+  </div>
+
+
+  <ion-item class="ion-margin">
+    <ion-label>Fecha de la clase</ion-label>
+    <ion-datetime placeholder="Seleccionar fecha" displayFormat="D MMM YYYY" max="2100" min="2015"
+      (ionChange)="setDate($event)" name="date" [(ngModel)]="date"></ion-datetime>
+  </ion-item>
+  <ion-searchbar class="ion-margin-top" searchIcon="search" animated cancel-button-icon (ionCancel)="hideSearch()"
+    (search)="getWorkouts()" (ionChange)="setSearchValue($event.target.value)" placeholder="Buscar clases">
+  </ion-searchbar>
+
+  <ion-content *ngIf="!isEmpty">
+    <ion-card *ngFor="let class of session">
+      <ion-card-content class="ion-text-justify" color="dark" style="size: 14px" ion-item
+        routerLink="/training-class-detail/{{class.id}}">
+        <ion-text color="dark"><b>{{class.name}}</b>
+          <ion-text color="danger" *ngIf="class.available==false"> (No disponible) </ion-text>
+          <br>
+          <b>{{class.date}}</b>
+        </ion-text>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
+
+  <ion-content *ngIf="isEmpty">
+    <ion-content class='ion-padding' style="font-size: 30px;">
+      <ion-text>
+        ¡Vaya!<br><br>
+      </ion-text>
+      <ion-text>
+        No hay clases programadas para hoy.
+      </ion-text>
+    </ion-content>
+  </ion-content>
+
+</ion-content>

@@ -1,0 +1,47 @@
+<app-header title="Nuevo pago de usuario"></app-header>
+
+<ion-content *ngIf="profile && fare">
+<ion-content >
+  <form #f="ngForm" (ngSubmit)="onCreate()" novalidate>
+  <ion-list lines="full" class="ion-no-margin">
+      <ion-list-header lines="full">
+        <ion-label>
+          Nuevo pago de usuario
+        </ion-label>
+      </ion-list-header>
+      <ion-item>
+        <ion-label position = "stacked">Usuario:</ion-label>
+        <ion-input readonly>{{profile.nombre}}</ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position = "stacked">Tarifa a aplicar:</ion-label>
+        <ion-input readonly>{{fare.name}} ({{fare.amount}}€)</ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position = "stacked">Cantidad abonada: </ion-label>
+        <ion-input [(ngModel)]="amount" [ngModelOptions]="{standalone: true}" step=".01"></ion-input>
+    </ion-item>
+
+      <ion-item>
+        <ion-label position = "stacked">Metodo de pago</ion-label>
+        <ion-select required [(ngModel)]="method" [ngModelOptions]="{standalone: true}" #mySelect [value]="method" [selectedText]="method" (ionChange)="selectChanged(mySelect.value)">
+          <ion-select-option *ngFor="let paymeth of methods" [selected]="paymeth === method">{{ paymeth }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position = "stacked">Fecha</ion-label>
+        <ion-datetime displayFormat="MMM YYYY" max="2100" min="2015" [(ngModel)]="date" [ngModelOptions]="{standalone: true}" (ionChange)="changeDate($event)" ></ion-datetime>
+      </ion-item>
+      <div class="ion-padding">
+        <ion-button color="success" expand="block" type="submit" class="ion-no-margin" [disabled]="!f.valid"> 
+              <ion-icon name="add-circle">  </ion-icon>
+              Formalizar pago
+               </ion-button>
+              </div>
+            </ion-list>
+            
+          </form>
+        </ion-content >
+
+</ion-content>

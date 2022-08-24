@@ -1,0 +1,49 @@
+<app-header title="Comunicación"></app-header>
+
+<div *ngIf="isAdmin" class="ion-text-center ion-margin-top">
+  <!-- <h3>Desliza para ver las opciones</h3> -->
+  <ion-button expand="block" color="success" routerLink="/create-news">
+      <ion-icon name="add-circle"></ion-icon>
+      <ion-label> Nueva noticia</ion-label>
+  </ion-button>
+</div>
+
+<ion-content>
+   <ion-list *ngFor="let news of allNews">
+       <ion-card>
+           <!-- <ion-item-options side="start" > 
+              <ion-item-option routerLink="/detail-news/{{news.id}}"> 
+                <ion-icon name="eye" slot="icon-only"> 
+               </ion-icon>  
+              </ion-item-option>
+           </ion-item-options>  -->
+       
+           <!-- <ion-item> -->
+            <ion-card-header>
+              <ion-card-subtitle>{{news.parsedDate}}</ion-card-subtitle>
+             <ion-card-title>{{news.title}}</ion-card-title>
+               
+             </ion-card-header>
+
+             <ion-card-content>
+             {{news.description}}
+            </ion-card-content>
+           <!-- </ion-item> -->
+<!--        
+           <ion-item-options *ngIf="isAdmin" side="end">
+               <ion-item-option color="danger" (click)="deleteConfirm(news.id)">
+                   <ion-icon name="trash" slot="icon-only" >
+                   </ion-icon>  
+               </ion-item-option>
+           </ion-item-options> -->
+       </ion-card>
+   </ion-list>
+
+   <ion-infinite-scroll (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+

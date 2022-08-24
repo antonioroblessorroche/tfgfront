@@ -1,0 +1,138 @@
+<app-header title="Editar clase"></app-header>
+
+<ion-row>
+  <ion-col>
+          <ion-segment (ionChange)="segmentChanged($event)">
+              <ion-segment-button value="detalle">
+                  <ion-label>Detalle</ion-label>
+              </ion-segment-button>
+              <ion-segment-button value="inscripciones">
+                  <ion-label>Inscripciones</ion-label>
+              </ion-segment-button>
+          </ion-segment>
+  </ion-col>
+</ion-row>
+
+<ion-content *ngIf="selector == 'detalle'">
+<ion-content *ngIf="session && fullSelectedWorkout && fullSelectedPlace && selectedTime">
+  <form #f="ngForm" (ngSubmit)="onCreate()" novalidate>
+  <ion-list lines="full" class="ion-no-margin">
+      <ion-list-header lines="full">
+        <ion-label>
+          Editar clase diaria
+        </ion-label>
+      </ion-list-header>
+
+        <ion-item>
+          <ion-label>Clase</ion-label>
+          <ionic-selectable item-content
+            [(ngModel)]="fullSelectedWorkout"
+            [ngModelOptions]="{standalone: true}"
+            [items]="workouts"
+            itemValueField="id"
+            itemTextField="name"
+            [canSearch]="true"
+            (onChange)="selectId($event)"
+           >
+          </ionic-selectable>
+        </ion-item>
+
+      <ion-item>
+        <ion-label>Hora:</ion-label>
+        <ion-datetime displayFormat="HH:mm" (ionChange)="selectTime($event)" [(ngModel)]="selectedTime"
+        [ngModelOptions]="{standalone: true}"></ion-datetime>
+      </ion-item>
+
+      
+      <ion-item>
+        <ion-label>Descripcion: </ion-label>
+        <ion-input type="text" placeholder="Descripción de la clase" name="description" [(ngModel)]="session.description"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Lugar</ion-label>
+      <ionic-selectable
+        item-content
+        [(ngModel)]="fullSelectedPlace"
+        [ngModelOptions]="{standalone: true}"
+        [items]="places"
+        itemValueField="id"
+        itemTextField="name"
+        [canSearch]="true"
+        (onChange)="selectCenterId($event)"
+        >
+      </ionic-selectable>
+    </ion-item>
+      <ion-item>
+        <ion-label>Plazas disponibles: </ion-label>
+        <ion-input type="number" placeholder="Numero de plazas disponibles" name="slots" [(ngModel)]="session.slots"></ion-input>
+    </ion-item>
+      <div class="ion-padding">
+          <ion-button color="success" expand="block" type="submit" class="ion-no-margin" [disabled]="!f.valid"> 
+              <ion-icon name="add-circle">  </ion-icon>
+              Editar
+               </ion-button>
+       </div>
+    </ion-list>
+</form>
+</ion-content>
+</ion-content>
+
+<ion-content *ngIf="selector == 'inscripciones' && session">
+  <ion-content *ngIf="session.reservations < session.slots">
+
+    <ion-item>
+      <ion-label>Añadir usuario</ion-label>
+      <ionic-selectable
+        [items]="users"
+        itemValueField="nombreUsuario"
+        itemTextField="nombre"
+        [canSearch]="true"
+        (onChange)="selectUserId($event)"
+        >
+      </ionic-selectable>
+    </ion-item>
+
+  <div class="ion-padding">
+    <ion-button color="success" expand="block" (click)="addUser()" class="ion-no-margin" > 
+        <ion-icon name="add-circle">  </ion-icon>
+        Añadir usuario
+         </ion-button>
+        </div>
+
+
+
+  <ion-content *ngIf="reservations.length != 0">
+    <ion-list *ngFor="let reservation of reservations">
+      <ion-item-sliding>
+        <ion-item-options side="start">
+          <ion-item-option routerLink="/user-detail/{{reservation.user}}">
+            <ion-icon name="eye" slot="icon-only">
+            </ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+        <ion-item>
+          <ion-label>{{reservation.userFullName}}</ion-label>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option color="danger" (click)="deleteConfirm(reservation.id)">
+            <ion-icon name="trash" slot="icon-only">
+            </ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-content>
+
+  <ion-content *ngIf="reservations.length == 0">
+    <ion-item>
+      <ion-label class="ion-text-wrap" align="center">
+       Aun no existen reservas para esta clase.
+      </ion-label>
+    </ion-item>
+  </ion-content>
+</ion-content>
+</ion-content>
+
+
+
+

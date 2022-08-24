@@ -1,0 +1,64 @@
+<app-header title="Clases"></app-header>
+<ion-content *ngIf="trainingClass">
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>{{trainingClass.name}}
+            </ion-card-title>
+            <ion-card-subtitle>{{trainingClass.date}} <ion-text color="danger" *ngIf="trainingClass.available==false">
+                    (No disponible) </ion-text>
+            </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content class="ion-text-justify">
+            {{trainingClass.comments}}
+            <ion-text color="danger" *ngIf="trainingClass.available==false"> <br> No quedan plazas disponibles
+            </ion-text>
+        </ion-card-content>
+    </ion-card>
+    <ion-content *ngIf="!trainingClass.reservationId">
+        <div class="ion-padding">
+            <ion-button color="success" expand="block" type="submit" class="ion-no-margin" (click)="reservar()">
+                <ion-icon name="add-circle"> </ion-icon>
+                &nbsp; Inscribeme!
+            </ion-button>
+        </div>
+        <div class="ion-padding">
+            <ion-button color="tertiary" expand="block" type="submit" class="ion-no-margin" (click)="volver()">
+                <ion-icon name="arrow-back-circle"> </ion-icon>
+                &nbsp; Volver
+            </ion-button>
+        </div>
+    </ion-content>
+    <ion-content *ngIf="trainingClass.reservationId">
+        <div class="ion-padding">
+            <ion-button color="danger" expand="block" type="submit" class="ion-no-margin" (click)="eliminarReserva()">
+                <ion-icon name="close-circle"> </ion-icon>
+                &nbsp; Eliminar reserva!
+            </ion-button>
+        </div>
+        <div class="ion-padding">
+            <ion-button color="tertiary" expand="block" type="submit" class="ion-no-margin" (click)="volver()">
+                <ion-icon name="arrow-back-circle"> </ion-icon>
+                &nbsp; Volver
+            </ion-button>
+        </div>
+    </ion-content>
+</ion-content>
+
+<ion-content *ngIf="!trainingClass">
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>
+                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+            </ion-card-title>
+            <ion-card-subtitle>
+                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+            </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content class="ion-text-justify">
+            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

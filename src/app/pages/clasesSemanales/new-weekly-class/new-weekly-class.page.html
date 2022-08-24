@@ -1,0 +1,72 @@
+<app-header title="Clases Semanales"></app-header>
+
+<ion-content>
+   
+    <form #f="ngForm" (ngSubmit)="onCreate()" novalidate>
+    <ion-list lines="full" class="ion-no-margin">
+        <ion-list-header lines="full">
+          <ion-label>
+            Creacion de clases semanales
+          </ion-label>
+        </ion-list-header>
+
+        <ion-item>
+          <ion-label>Semana:</ion-label>
+          <ionic-selectable
+          
+            [items]="mondayData"
+            itemValueField="name"
+            itemTextField="name"
+            [canSearch]="true"
+            (onChange)="selectWeek($event)">
+          </ionic-selectable>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Plantilla semanal:</ion-label>
+          <ionic-selectable
+          
+            [items]="classes"
+            itemValueField="id"
+            itemTextField="name"
+            [canSearch]="true"
+            (onChange)="selectTemplateId($event)">
+          </ionic-selectable>
+        </ion-item>
+
+        <!-- <ion-item>
+          <ion-label>Centro:</ion-label>
+          <ionic-selectable
+          
+            [items]="centers"
+            itemValueField="id"
+            itemTextField="name"
+            [canSearch]="true"
+            (onChange)="selectCenterId($event)">
+          </ionic-selectable>
+        </ion-item> -->
+
+        <!-- <ion-item>
+            <ion-label>Centro: </ion-label>
+            <ion-input  placeholder="¿En qué centro?" name="description" [(ngModel)]="description"></ion-input>
+        </ion-item> -->
+      </ion-list>
+
+      <div class="ion-padding">
+        <ion-button color="success" expand="block" type="submit" class="ion-no-margin" [disabled]="!f.valid" (click)="createNew()"> 
+            <ion-icon name="create">  </ion-icon>
+            Generar
+             </ion-button>
+     </div>
+     <!-- <div class="ion-padding">
+        <ion-button color="secondary" expand="block" (click)="vaciar()" class="ion-no-margin"> 
+            <ion-icon name="refresh-circle">  </ion-icon>
+            Reset
+             </ion-button>
+     </div> -->
+     
+  </form>
+
+  
+
+</ion-content>

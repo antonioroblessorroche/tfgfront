@@ -1,0 +1,81 @@
+<app-header title="Editar clase maetsra"></app-header>
+
+<ion-content *ngIf="session">
+  <form #f="ngForm" (ngSubmit)="onCreate()" novalidate>
+  <ion-list lines="full" class="ion-no-margin">
+      <ion-list-header lines="full">
+        <ion-label>
+          Editar clase diaria maestra
+        </ion-label>
+      </ion-list-header>
+
+        <ion-item>
+          <ion-label>Clase</ion-label>
+          <ionic-selectable item-content
+            [(ngModel)]="fullSelectedWorkout"
+            [ngModelOptions]="{standalone: true}"
+            [items]="workouts"
+            itemValueField="id"
+            itemTextField="name"
+            [canSearch]="true"
+            (ionChange)="selectId($event)">
+          </ionic-selectable>
+        </ion-item>
+
+      <ion-item>
+        <ion-label>Hora:</ion-label>
+        <ion-datetime displayFormat="HH:mm" (ionChange)="selectTime($event)" [(ngModel)]="selectedTime" [ngModelOptions]="{standalone: true}"></ion-datetime>
+      </ion-item>
+
+      
+      <ion-item>
+        <ion-label>Descripcion: </ion-label>
+        <ion-input type="text" placeholder="Descripción de la clase" name="description" [(ngModel)]="session.description"></ion-input>
+    </ion-item>
+
+      <!-- <ion-item>
+        <ion-label>Lugar: </ion-label>
+        <ion-input placeholder="¿Dónde tendrá lugar?" name="description" [(ngModel)]="place"></ion-input>
+    </ion-item> -->
+
+    <ion-item>
+      <ion-label>Lugar</ion-label>
+      <ionic-selectable
+        item-content
+        [(ngModel)]="fullSelectedPlace"
+        [ngModelOptions]="{standalone: true}"
+        [items]="places"
+        itemValueField="id"
+        itemTextField="name"
+        [canSearch]="true"
+        (ionChange)="selectCenterId($event)"
+        >
+      </ionic-selectable>
+    </ion-item>
+
+      <ion-item>
+        <ion-label>Plazas disponibles: </ion-label>
+        <ion-input type="number" placeholder="Numero de plazas disponibles" name="slots" [(ngModel)]="session.slots"></ion-input>
+    </ion-item>
+
+
+
+      <div class="ion-padding">
+          <ion-button color="success" expand="block" type="submit" class="ion-no-margin" [disabled]="!f.valid"> 
+              <ion-icon name="add-circle">  </ion-icon>
+              Editar
+               </ion-button>
+       </div>
+<!--        
+       <div class="ion-padding">
+          <ion-button color="secondary" expand="block" (click)="vaciar()" class="ion-no-margin"> 
+              <ion-icon name="refresh-circle">  </ion-icon>
+              Reset
+               </ion-button>
+       </div> -->
+    </ion-list>
+   
+</form>
+
+</ion-content>
+

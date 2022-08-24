@@ -1,0 +1,49 @@
+<app-header title="Nueva clase"></app-header>
+
+<ion-content *ngIf="center">
+  <form #f="ngForm" (ngSubmit)="onCreate()">
+  <ion-list lines="full" class="ion-no-margin">
+      <ion-item>
+        <ion-label>Nombre: </ion-label>
+        <ion-input required placeholder="Nombre del centro" name="nombre" [(ngModel)]="center.name"></ion-input>
+    </ion-item>
+
+      <ion-item>
+        <ion-label>Descripcion: </ion-label>
+        <ion-input required placeholder="Descripcion" name="description" [(ngModel)]="center.description"></ion-input>
+    </ion-item>
+
+
+
+      <div class="ion-padding">
+          <ion-button color="success" expand="block" type="submit" class="ion-no-margin" [disabled]="!f.valid"> 
+              <ion-icon name="add-circle">  </ion-icon>
+              Editar
+               </ion-button>
+       </div>
+       
+    </ion-list>
+   
+</form>
+
+</ion-content>
+
+
+<ion-content *ngIf="!center">
+  <ion-card>
+      <ion-card-header>
+          <ion-card-title>
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          </ion-card-title>
+          <ion-card-subtitle>
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content class="ion-text-justify">
+          <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+      </ion-card-content>
+  </ion-card>
+</ion-content>

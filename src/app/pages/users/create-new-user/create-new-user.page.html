@@ -1,0 +1,56 @@
+<app-header title="Alta de usuario"></app-header>
+
+<ion-content>
+    <form #f="ngForm" (ngSubmit)="onRegister()" novalidate>
+        <ion-list >
+            <ion-item>
+              <ion-label>Nombre: <ion-text color="danger">*</ion-text></ion-label>
+              <ion-input required placeholder="Nombre completo" name="nombre" [(ngModel)]="nombre" [ngModelOptions]="{standalone: true}"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Email: <ion-text color="danger">*</ion-text></ion-label>
+                <ion-input required type="email" placeholder="Correo electrónico" name="email" [(ngModel)]="email" email [ngModelOptions]="{standalone: true}"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-checkbox color="danger" expand="block" (ionChange)="changeActive($event.detail.checked)" [(ngModel)]="active" [ngModelOptions]="{standalone: true}">Activo</ion-checkbox>
+                <ion-label style="margin-left: 15px">Activo</ion-label>
+              </ion-item>
+              <!-- <ion-item>
+                <ion-checkbox color="success" expand="block" (ionChange)="changeGuest($event.detail.checked)" [(ngModel)]="guest" [ngModelOptions]="{standalone: true}">Guest</ion-checkbox>
+                <ion-label style="margin-left: 15px">Invitado</ion-label>
+              </ion-item> -->
+              <ion-item *ngIf="active">
+                  <ion-label >Tarifa</ion-label>
+                  <ionic-selectable
+                    [(ngModel)]="fareId"
+                    [ngModelOptions]="{standalone: true}"
+                      [items]="fares"
+                      itemValueField="id"
+                      itemTextField="name"
+                      [canSearch]="true"
+                      (onChange)="selectFareId($event)">
+                  </ionic-selectable>
+              </ion-item>
+
+            <div class="ion-padding">
+                <ion-button color="success" expand="block" type="submit" class="ion-no-margin" [disabled]="!f.valid"> 
+                    <ion-icon name="person-add">  </ion-icon>
+                    Registrar usuario
+                     </ion-button>
+             </div>
+             
+          </ion-list>
+         
+    </form>
+
+    <!-- <div class="ion-text-center">
+        <ion-label position="floating">
+            <ion-text color="danger">
+                *
+            </ion-text> Campos obligatorios
+        </ion-label>
+    </div> -->
+
+
+    
+</ion-content>

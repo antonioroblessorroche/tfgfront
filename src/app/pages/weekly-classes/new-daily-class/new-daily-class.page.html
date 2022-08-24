@@ -1,0 +1,70 @@
+<app-header title="Nueva clase"></app-header>
+
+<ion-content>
+  <form #f="ngForm" (ngSubmit)="onCreate()" novalidate>
+  <ion-list lines="full" class="ion-no-margin">
+      <ion-list-header lines="full">
+        <ion-label>
+          Crear nueva clase diaria
+        </ion-label>
+      </ion-list-header>
+
+        <ion-item>
+          <ion-label>Clase</ion-label>
+          <ionic-selectable
+          
+            [items]="workouts"
+            itemValueField="id"
+            itemTextField="name"
+            [canSearch]="true"
+            (onChange)="selectId($event)">
+          </ionic-selectable>
+        </ion-item>
+
+      <ion-item>
+        <ion-label>Hora:</ion-label>
+        <ion-datetime displayFormat="HH:mm" (ionChange)="selectTime($event)" ></ion-datetime>
+      </ion-item>
+
+      
+      <ion-item>
+        <ion-label>Descripcion: </ion-label>
+        <ion-input placeholder="Descripción de la clase" name="description" [(ngModel)]="description"></ion-input>
+    </ion-item>
+
+      <!-- <ion-item>
+        <ion-label>Lugar: </ion-label>
+        <ion-input placeholder="¿Dónde tendrá lugar?" name="description" [(ngModel)]="place"></ion-input>
+    </ion-item> -->
+
+    <ion-item>
+      <ion-label>Lugar</ion-label>
+      <ionic-selectable
+        [items]="places"
+        itemValueField="id"
+        itemTextField="name"
+        [canSearch]="true"
+        (onChange)="selectCenterId($event)">
+      </ionic-selectable>
+    </ion-item>
+
+      <ion-item>
+        <ion-label>Plazas disponibles: </ion-label>
+        <ion-input type="number" placeholder="Numero de plazas disponibles" name="description" [(ngModel)]="slots"></ion-input>
+    </ion-item>
+
+
+
+      <div class="ion-padding">
+          <ion-button color="success" expand="block" type="submit" class="ion-no-margin" [disabled]="!f.valid"> 
+              <ion-icon name="add-circle">  </ion-icon>
+              Crear
+               </ion-button>
+       </div>
+       
+    </ion-list>
+   
+</form>
+
+</ion-content>
+

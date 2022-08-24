@@ -1,0 +1,55 @@
+<app-header title="Registro"></app-header>
+
+<ion-content>
+    <form #f="ngForm" (ngSubmit)="onRegister()" novalidate>
+        <ion-list lines="full" class="ion-no-margin">
+            <ion-list-header lines="full">
+              <ion-label>
+                Registrate
+              </ion-label>
+            </ion-list-header>
+            <ion-item>
+              <ion-label>Nombre: <ion-text color="danger">*</ion-text></ion-label>
+              <ion-input required placeholder="Nombre completo" name="nombre" [(ngModel)]="nombre"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Email: <ion-text color="danger">*</ion-text></ion-label>
+                <ion-input required type="email" placeholder="Correo electrónico" name="email" [(ngModel)]="email" email></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label>Usuario: <ion-text color="danger">*</ion-text></ion-label>
+                <ion-input required placeholder="Nombre de usuario" name="nombreUsuario" [(ngModel)]="nombreUsuario"></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label>Password: <ion-text color="danger">*</ion-text></ion-label>
+                  <ion-input required type="password" placeholder="Contraseña" name="description" [(ngModel)]="password"></ion-input>
+                </ion-item>
+            <div class="ion-padding">
+                <ion-button color="success" expand="block" type="submit" class="ion-no-margin" [disabled]="!f.valid"> 
+                    <ion-icon name="person-add">  </ion-icon>
+                    Registrarse
+                     </ion-button>
+             </div>
+             
+          </ion-list>
+         
+    </form>
+
+    <div class="ion-text-center">
+        <ion-label position="floating">
+            <ion-text color="danger">
+                *
+            </ion-text> Campos obligatorios
+        </ion-label>
+    </div>
+    <ion-item-divider>
+    </ion-item-divider>
+
+    <div class="ion-text-center ion-padding ion-marging-top">
+        <h4>¿Ya estás registrado?</h4>
+        <ion-button color="tertiary" expand="block" type="submit" class="ion-no-margin" routerLink="/login"> 
+            <ion-icon name="log-in">  </ion-icon>
+            Accede con tu cuenta
+         </ion-button>
+    </div>
+</ion-content>

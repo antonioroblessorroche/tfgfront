@@ -1,0 +1,185 @@
+<app-header title="Gestion de gastos e Ingresos"></app-header>
+
+
+ <ion-content>
+    <ion-row>
+    <ion-col col-6>
+        <ion-item>
+          <ion-label>Año</ion-label>
+          <ion-datetime displayFormat="YYYY" (ionChange)="selectYear($event)"></ion-datetime>
+        </ion-item>
+    </ion-col>
+    
+    <ion-col col-6>
+      <ion-item>
+        <ion-label>Mes</ion-label>
+        <ion-datetime displayFormat="MMM" (ionChange)="selectMonth($event)" [disabled]="!selectedYear || selectedYear == 0"></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col col-6>
+      <ion-button (click)="buscar()" expand="block">
+        <ion-icon name="search"></ion-icon>
+        Buscar    
+      </ion-button>
+  </ion-col>
+  
+  <ion-col col-6>
+    <ion-button routerLink="/new-expense" color="success" expand="block">
+      <ion-icon name="add" ></ion-icon>
+        Crear    
+      </ion-button>
+  </ion-col>
+  </ion-row>
+
+
+
+
+  <ion-content>
+    <ion-item>
+        <ion-col col-12>
+          <ion-segment (ionChange)="segmentChanged($event)">
+            <ion-segment-button value="profile">
+              <ion-label>Gastos</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="payments">
+              <ion-label>Ingresos</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="comments">
+              <ion-label>Resumen</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+        </ion-col>
+        <!-- <ion-col col-3>
+                  <ion-button expand="block" color="success">
+                      <ion-label>Actualizar</ion-label>
+                  </ion-button>
+          </ion-col> -->
+    </ion-item>
+    <ion-content *ngIf="selector == 'profile'">
+      <ion-content *ngIf="expenses.length == 0" style="margin: 10%">
+        <ion-item>
+          <ion-label class="ion-text-wrap" align="center" style="margin: 10%">No existen gastos para los filtros seleccionados</ion-label>
+        </ion-item>
+      </ion-content>
+
+      <ion-content *ngIf="expenses">
+        <ion-list *ngFor="let expense of expenses">
+          <ion-item-sliding>
+              <ion-item-options side="start" > 
+                 <ion-item-option routerLink="/detail-expense/{{expense.id}}"> 
+                   <ion-icon name="eye" slot="icon-only"> 
+                  </ion-icon>  
+                 </ion-item-option>
+              </ion-item-options> 
+          
+              <ion-item>
+                <ion-label>{{expense.name}} ({{expense.amount}}€)</ion-label>
+              </ion-item>
+          
+              <ion-item-options side="end">
+                  <ion-item-option color="danger" (click)="deleteConfirm(center.id)">
+                      <ion-icon name="trash" slot="icon-only" >
+                      </ion-icon>  
+                  </ion-item-option>
+              </ion-item-options>
+          </ion-item-sliding>
+      </ion-list>
+      </ion-content>
+
+
+    </ion-content>
+
+
+    <ion-content *ngIf="selector == 'payments'">
+      <ion-content *ngIf="incomes.length == 0" style="margin: 10%">
+        <ion-item>
+          <ion-label class="ion-text-wrap" align="center" style="margin: 10%">No existen ingresos para los filtros seleccionados</ion-label>
+        </ion-item>
+      </ion-content>
+
+      <ion-content *ngIf="incomes">
+        <ion-list *ngFor="let income of incomes">
+          <ion-item-sliding>
+              <ion-item-options side="start" > 
+                 <ion-item-option routerLink="/detail-expense/{{income.id}}"> 
+                   <ion-icon name="eye" slot="icon-only"> 
+                  </ion-icon>  
+                 </ion-item-option>
+              </ion-item-options> 
+          
+              <ion-item>
+                <ion-label>{{income.name}} ({{income.amount}}€)</ion-label>
+              </ion-item>
+          
+              <ion-item-options side="end">
+                  <ion-item-option color="danger" (click)="deleteConfirm(center.id)">
+                      <ion-icon name="trash" slot="icon-only" >
+                      </ion-icon>  
+                  </ion-item-option>
+              </ion-item-options>
+          </ion-item-sliding>
+      </ion-list>
+      </ion-content>
+
+    </ion-content>
+
+
+
+
+    <ion-content *ngIf="selector == 'comments'">
+      <ion-content *ngIf="!hasData" style="margin: 10%">
+        <ion-item>
+          <ion-label class="ion-text-wrap" align="center" style="margin: 10%">No existen gastos ni ingresos para los filtros</ion-label>
+        </ion-item>
+      </ion-content>
+      <ion-content *ngIf="summary" style="margin: 10%">
+
+        <ion-item>
+          <ion-label position="stacked">Balance</ion-label>
+          <ion-label>{{balance}}</ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Total gastos</ion-label>
+          <ion-label>{{totalExpenses}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label  position="stacked">Total ingresos</ion-label>
+          <ion-label>{{totalIncomes}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Usuarios activos</ion-label>
+          <ion-label>{{summary.numberOfActiveUsers}}</ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Total pagos usuario</ion-label>
+          <ion-label>{{summary.totalPaidUsers}}</ion-label>
+        </ion-item>
+
+        <ion-item *ngIf="summary.remainingUnpaidUsers != '-'">
+          <ion-label position="stacked">Nº usuarios pendientes de pago</ion-label>
+          <ion-label>{{summary.remainingUnpaidUsers}}</ion-label>
+        </ion-item>
+
+        <ion-item *ngIf="summary.remainingAmountUsers != '-'">
+          <ion-label position="stacked">Cantidad pendiente de pago</ion-label>
+          <ion-label>{{summary.remainingAmountUsers}}</ion-label>
+        </ion-item>
+
+        <ion-item *ngIf="summary.totalExpectedUsers != '-'">
+          <ion-label position="stacked">Total esperado usuarios</ion-label>
+          <ion-label>{{summary.totalExpectedUsers}}</ion-label>
+        </ion-item>
+      </ion-content>
+    </ion-content>
+
+       
+  </ion-content>  
+
+
+  
+</ion-content>  
+

@@ -1,0 +1,24 @@
+<app-header title="Entrenamientos"></app-header>
+<ion-item class="ion-padding">
+  <ion-checkbox (ionChange)="check($event.detail.checked)" [(ngModel)]="historic"></ion-checkbox>
+  <ion-label>&nbsp;&nbsp;Mostrar historico de clases</ion-label>
+</ion-item>
+<ion-content *ngIf="trainingSessions">
+    <div class="ion-text-center ion-margin-bottom ion-margin-top">
+        <!-- <h3>Desliza para ver las opciones</h3> -->
+    </div>
+    <ion-card *ngFor="let class of trainingSessions">
+      <!-- <button ion-item routerLink="/training-class-detail/{{class.id}}"> -->
+     
+      <!-- <ion-card-title class="ion-margin" style="font-size:20px"> {{class.name}} 
+        <ion-label *ngIf="class.available==false"> (No disponible) </ion-label>
+      </ion-card-title> -->
+      <ion-card-content class="ion-text-justify" color="dark" style="size: 14px" ion-item routerLink="/training-class-detail/{{class.id}}" >
+        <ion-text color="dark"><b>{{class.className}}</b>
+        <br>
+        <b>{{class.date}}</b>
+      </ion-text>
+      </ion-card-content>
+    <!-- </button> -->
+    </ion-card>
+</ion-content>

@@ -1,0 +1,7 @@
+{
+  "name": "frontJwt",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

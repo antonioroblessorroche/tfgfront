@@ -1,0 +1,55 @@
+<app-header title="Login"></app-header>
+
+<ion-content *ngIf="!isLogged">
+    <form #f="ngForm" (ngSubmit)="onLogin()" novalidate>
+        <ion-list lines="full" class="ion-no-margin">
+            <ion-list-header lines="full">
+              <ion-label>
+               Inicio de sesión
+              </ion-label>
+            </ion-list-header>
+            <ion-item>
+              <ion-label>Usuario: <ion-text color="danger">*</ion-text></ion-label>
+              <ion-input required placeholder="Nombre de usuario" name="nombreUsuario" [(ngModel)]="nombreUsuario"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Password: <ion-text color="danger">*</ion-text></ion-label>
+                <ion-input required type="password" [(ngModel)]="password" placeholder="Contraseña" name="description"></ion-input>
+              </ion-item>
+            <div class="ion-padding">
+                <ion-button color="success" expand="block" type="submit" class="ion-no-margin" [disabled]="!f.valid"> 
+                    <ion-icon name="log-in">  </ion-icon>
+                    Acceder
+                     </ion-button>
+             </div>
+          </ion-list>
+         
+    </form>
+
+    <div class="ion-text-center">
+        <ion-label position="floating" (click)="presentRetrievePass()">
+         ¿Olvidaste la contraseña?
+        </ion-label>
+    </div>
+    <ion-item-divider>
+    </ion-item-divider>
+
+    <!-- <div class="ion-text-center ion-padding ion-marging-top">
+        <h4>¿No tienes cuenta?</h4>
+        <ion-button color="tertiary" expand="block" type="submit" class="ion-no-margin" routerLink="/register"> 
+            <ion-icon name="person-add">  </ion-icon>
+            Crear cuenta
+         </ion-button>
+    </div> -->
+</ion-content>
+
+<ion-content *ngIf="isLogged">
+  <div class="ion-text-center ion-margin-top ion-padding">
+    <ion-text color="primary"><h2>Sesion ya iniciada</h2></ion-text>
+      <ion-divider></ion-divider>
+      <ion-button color="tertiary" expand="block" class="ion-no-margin" (click)="logOut()"> 
+        <ion-icon name="log-out">  </ion-icon>
+        Cerrar sesion
+     </ion-button>
+   </div>
+</ion-content>
