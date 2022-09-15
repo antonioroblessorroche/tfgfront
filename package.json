@@ -10,7 +10,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
-  },"engines": {
+  },
+  "engines": {
     "node": "14.16.1"
   },
   "private": true,
