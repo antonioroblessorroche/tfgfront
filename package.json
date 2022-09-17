@@ -6,7 +6,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "sudo npm install -g ionic && ionic serve",
+    "build": "ng run app:serve --host=localhost --port=8100",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
